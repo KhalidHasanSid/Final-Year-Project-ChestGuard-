@@ -4,19 +4,28 @@ import Login from './Login.jsx';
 import Protected from './protected.jsx';
 import Layout from './layout.jsx';
 import Home from './home.jsx';
+import Detection from './detection.jsx';
+import AskQuestion from './askQuestion.jsx';
+import Faqs from './faqs.jsx';
+import Admin from './Admin.jsx';
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
         {/* Public Routes */}
+        <Route path="/admin" element={<Admin />} />
+
         <Route path="/registration" element={<Registration />} />
         <Route path="/login" element={<Login />} />
 
-        {/* Layout is used for protected routes */}
+       
         <Route path="/" element={<Protected><Layout /></Protected>}>
-          {/* Protected route for /home */}
+         
           <Route path="home" element={<Home />} />
+          <Route path="detection" element={<Detection />} />
+          <Route path="askQuestion" element={<AskQuestion />} />
+          <Route path="faqs" element={<Faqs />} />
         </Route>
       </>
     )
