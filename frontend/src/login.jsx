@@ -1,24 +1,45 @@
 import react from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
 function Login(){
-  const [username ,setUsername]=react.useState("")
-  const [password ,setPassword]=react.useState("")
+  const [email ,setEmail]=react.useState("")
+  const [password ,setPassword]=react.useState("") 
+  const navigate = useNavigate();
 
-  const handleSubmit =(e)=>{
+  const abc= async(e)=>{
     e.preventDefault();
-    console.log("hi")
+    console.log( email,"password",password)
+   
+    try {
+      const response = await axios.post('http://localhost:4500/api/v1/chestguarduser/loginFYP', {
+        email: email, 
+        password: password,
+      }, { withCredentials: true }); 
+
+      console.log('Login successful:',response,"token is here ", response.data.data.access, );
+     
+     
+      localStorage.setItem('Accesstoken', response.data.data.access);
+      localStorage.setItem('Refreshtoken', response.data.data.refresh);
+
+      navigate('/home');
+      
+     
+    } catch (err) {
+      console.error('Login error:', err.response?.data?.message || err.message);
+     
+    }
   }
 
 
   return(
     <>
-    <label >Doctor ID:</label>
-    <input  onChange={(e)=> setUsername(e.target.value)} type="text" />
+    <label >Email:</label>
+    <input  onChange={(e)=> setEmail(e.target.value)} type="text" />
     <label >Password:</label>
     <input onChange={(e)=> setPassword(e.target.value)} type="password" />
-     <button onClick={handleSubmit} >Login</button>
+     <button onClick={abc} >Login</button>
     <Link to ="/registration"><button>Register</button></Link>
    
     </>

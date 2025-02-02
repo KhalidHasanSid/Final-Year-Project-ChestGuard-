@@ -9,7 +9,7 @@ const connectDB = async ()=>{
         const connection=  await mongoose.connect('mongodb+srv://khalid:khalid123@cluster0.570yx.mongodb.net/CHESTGUARD')
 
         if(connection){
-            console.log("mongodb",connection)
+            console.log("mongodb connection MOUNTED")
         }
     }
     catch(err){

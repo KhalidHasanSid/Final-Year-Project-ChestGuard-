@@ -22,26 +22,26 @@ const user = mongoose.Schema({
 
     refresh_token:{
         type:String,
-        required:true 
+       
     }
-})
+}, {timestamps:true})
 
 
-userSchema.pre('save', async function (next) {
-    if (!this.isModified('password')) return next();
-    this.password = bcrypt.hash(this.password, 10);
+user.pre('save', async function (next) {
+    if (!this.isModified('password')) {return next();}
+    this.password = await  bcrypt.hash(this.password, 10);
     next();
 });
 
-user.methods.validatePassword=async (password)=>{
-   return  await  bcrypt.compare(password,this.password)
+user.methods.validatePassword= async function (password) {
+   return  await  bcrypt.compare(password, this.password)
 }
 
 user.methods.generateAccessToken=async function(){
-    jwt.sign({_id:this._id},process.env.ACCESS_TOKEN_SECRET,{ expiresIn:process.env.ACCESS_TOKEN_EXPIRY})
+     return  jwt.sign({_id:this._id},process.env.ACCESS_TOKEN_SECRET,{ expiresIn:process.env.ACCESS_TOKEN_EXPIRY})
 }
 user.methods.generateRefreshToken=async function(){
-    jwt.sign({_id:this._id},
+   return   jwt.sign({_id:this._id},
         process.env.REFRESH_TOKEN_SECRET,
         { expiresIn:process.env.REFRESH_TOKEN_EXPIRY})
 }
