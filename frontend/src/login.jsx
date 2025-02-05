@@ -33,7 +33,8 @@ function Login(){
 
   return(
     <>
-      <label >Email:</label>
+    <h1 className="text-3xl font-bold underline">heloo world</h1>
+      <label  >Email:</label>
       <input  onChange={(e)=> setEmail(e.target.value)} type="text" />
       <label >Password:</label>
       <input onChange={(e)=> setPassword(e.target.value)} type="password" />

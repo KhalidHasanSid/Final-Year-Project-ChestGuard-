@@ -10,12 +10,12 @@ const auth =asyncHandler(async (req,res,next)=>{
     try{
     const token=req.cookies.accessTokens
 
-    if(!token){throw new apiError(400,"msla arha h bhenchod")}
+    if(!token){throw new apiError(400,"msla arha h ..........")}
 
     const decoded =jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
     console.log("chk krha hun",decoded)
     const user =await User.findById(decoded._id)
-    if(!user){throw new apiError(400," user he nh h  ......bhenchod")}
+    if(!user){throw new apiError(400," user he nh h ..................")}
     req.user=user 
     next()
 }
