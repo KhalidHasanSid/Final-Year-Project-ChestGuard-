@@ -2,6 +2,7 @@ import apiResponse from "../utils/apiResponse.js";
 import { apiError } from "../utils/apiError.js";
 import asyncHandler from "../utils/asyncHandler.js ";
 import User from "../models/user.model.js";
+import auth from "../middlewares/auth.middleware.js";
 
 
 
@@ -69,15 +70,19 @@ import User from "../models/user.model.js";
         console.log("welcome you ate login ")
         const ACCESSTOKEN = await  user.generateAccessToken(user._id)
         const RefreshTOKEN = await  user.generateRefreshToken(user._id)
+
+          if(!RefreshTOKEN){ throw new apiError(400,"no refresh token found ")}
+           user.refresh_token=RefreshTOKEN
+          await user.save({ validateBeforeSave: false })
         console.log("accestoken",ACCESSTOKEN,"\nRefresh token",RefreshTOKEN)
 
         
 
         res.cookie("accessTokens",ACCESSTOKEN, {
           httpOnly: true,
-          secure: false, sameSite: "lax"}).cookie("Refresh",RefreshTOKEN , {
+          secure: true, sameSite: "lax"}).cookie("Refresh",RefreshTOKEN , {
             httpOnly: true,
-            secure: false,  sameSite: "lax"}).json(new apiResponse(200,{
+            secure: true,  sameSite: "lax"}).json(new apiResponse(200,{
               access:ACCESSTOKEN,
               refresh: RefreshTOKEN
             }, "login succesful"))
@@ -87,5 +92,31 @@ import User from "../models/user.model.js";
 
    })
 
+   const logoutController= asyncHandler(async(req,res,next)=>{
+    await User.findByIdAndUpdate(
+      req.user._id,
+      {
+          $unset: {
+            refresh_token: 1 // this removes the field from document
+          }
+      },
+      {
+          new: true
+      }
+  )
 
-  export  {registerController, loginUserController}
+  const options = {
+      httpOnly: true,
+      secure: true
+  }
+
+  return res
+  .status(200)
+  .clearCookie("accessTokens", options)
+  .clearCookie("Refresh", options)
+  .json(new apiResponse(200, {}, "User logged Out"))
+       
+   })
+
+
+  export  {registerController, loginUserController,logoutController}

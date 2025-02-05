@@ -2,11 +2,24 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 function Protected({ children }) {
-  const isAuthenticated = !!localStorage.getItem("Accesstoken"); // Check if token exists
+  const token = localStorage.getItem("Accesstoken");
+  const loginTimestamp = localStorage.getItem("loginTimestamp");
 
-  if (!isAuthenticated) {
+  if (!token || !loginTimestamp) {
     return <Navigate to="/login" />;
   }
+
+  const isTokenExpired = Date.now() - parseInt(loginTimestamp) > 1 * 60 * 1000; // 4 minutes in milliseconds
+
+  if (isTokenExpired) {
+    // Token has expired, clear everything and redirect to login
+    localStorage.removeItem("Accesstoken");
+    localStorage.removeItem("Refreshtoken");
+    localStorage.removeItem("loginTimestamp");
+
+    return <Navigate to="/login" />;
+  }
+
   return children;
 };
 
