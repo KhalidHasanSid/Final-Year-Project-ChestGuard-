@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Home() {
   return (<>
-   < div className="min-h-screen bg-gradient-to-b from-blue-900 to-indigo-700 text-white p-6 mt-7">
+   < div className="min-h-screen bg-gradient-to-b from-blue-200 to-indigo-700 text-white p-6 mt-7">
    <main className="flex flex-col lg:flex-row items-center justify-center gap-8 mt-10">
   
     <img
