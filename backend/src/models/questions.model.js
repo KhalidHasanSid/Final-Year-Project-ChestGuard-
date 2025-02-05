@@ -8,7 +8,7 @@ const askQuestionSchema =mongoose.Schema({
     
 
     age:{
-        type:Number,
+        type:String,
         required: true 
 
     },

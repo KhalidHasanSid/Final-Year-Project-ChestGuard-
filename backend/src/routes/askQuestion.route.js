@@ -1,8 +1,10 @@
 import { Router } from "express";
-import askQuestionController from "../controllers/askquestion.controller.js";
+import {askQuestionController,getQuetionsAsked} from "../controllers/askquestion.controller.js";
+import auth from "../middlewares/auth.middleware.js";
 
 const askQuestionRouter= Router();
 
-askQuestionRouter.route("/askQuestionFYP").post(askQuestionController)
+askQuestionRouter.route("/askQuestionFYP").post(auth,askQuestionController)
+askQuestionRouter.route("/getquestions").get(getQuetionsAsked)
 
 export default askQuestionRouter

@@ -7,7 +7,7 @@ import Home from './home.jsx';
 import Detection from './detection.jsx';
 import AskQuestion from './askQuestion.jsx';
 import Faqs from './faqs.jsx';
-import Admin from './Admin.jsx';
+import Admin from './admin/Admin.jsx';
 
 function App() {
   const router = createBrowserRouter(

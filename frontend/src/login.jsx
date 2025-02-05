@@ -19,10 +19,10 @@ function Login(){
 
       console.log('Login successful:', response, "token is here ", response.data.data.access);
      
-      // Store tokens and login time in localStorage
+      
       localStorage.setItem('Accesstoken', response.data.data.access);
       localStorage.setItem('Refreshtoken', response.data.data.refresh);
-      localStorage.setItem('loginTimestamp', Date.now()); // Store the login time
+      localStorage.setItem('loginTimestamp', Date.now());
 
       navigate('/home');
       

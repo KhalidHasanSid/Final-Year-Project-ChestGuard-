@@ -6,6 +6,7 @@ import User from "../models/user.model.js";
 import { apiError } from "../utils/apiError.js";
 
 const auth =asyncHandler(async (req,res,next)=>{
+    console.log("hi")
     try{
     const token=req.cookies.accessTokens
 
@@ -16,7 +17,8 @@ const auth =asyncHandler(async (req,res,next)=>{
     const user =await User.findById(decoded._id)
     if(!user){throw new apiError(400," user he nh h  ......bhenchod")}
     req.user=user 
-    next()}
+    next()
+}
     catch(err){console.log("/////////////////////",err)
         if (err.name === 'TokenExpiredError') {
             return res.status(401).json({ message: 'Session expired, please login again.' });

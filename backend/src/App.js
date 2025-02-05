@@ -23,6 +23,6 @@ import userRouter from './routes/user.route.js';
 import askQuestionRouter from './routes/askQuestion.route.js';
 
 App.use("/api/v1/chestguarduser",userRouter)
-App.use("api/v1/chestguardquestion",askQuestionRouter)
+App.use("/api/v1/chestguardquestion",askQuestionRouter)
 
 export default App
