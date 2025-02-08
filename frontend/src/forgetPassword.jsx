@@ -36,12 +36,15 @@ export default function ForgetPassword() {
                 email: email,
                 code: code 
             }, { withCredentials: true });
+            console.log(">>>>",response.data.statusCode)
 
-            if (response.data.statusCode === 200) {
+            if (response.data.statusCode == 200) {
+
+                console.log("i am here new flag value is going to 3")
                 
                setFlag(3)
             }
-            else if (response.data.statusCode === 400) {
+            else if (response.data.statusCode == 400) {
                 console.log("incorrect otp")
             }
         } catch (err) {
@@ -73,7 +76,7 @@ export default function ForgetPassword() {
                 </>
             )}
 
-            {flag===3 && (<> <SetNewPassword/></> )}
+            {flag===3 && (<> <SetNewPassword value={email}/></> )}
         </>
     );
 }

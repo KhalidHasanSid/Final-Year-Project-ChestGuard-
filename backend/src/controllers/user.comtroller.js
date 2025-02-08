@@ -166,8 +166,24 @@ import transporter from "../utils/nodemailer.js";
     
       
     )
+
+    const updatePassword =asyncHandler(async (req,res)=>{
+
+      const {email ,newpassword}=req.body
+      console.log(email,"lbvhilsuvhiwbvjvfgihovwbdvhidwb",newpassword)
+
+      if(!email || !newpassword){throw new apiError(401,"something missing ")}
+
+      const user = await User.findOne({email})  
+
+      if(!user){throw new apiError(409,"user doesnot exist")}
+
+      user.password = newpassword
+      await user.save({validateBeforeSave: false})  
+       res.json(new apiResponse(200, {}, "Password changed successfully"))
+    })
     
     
 
 
-  export  {registerController, loginUserController,logoutController , sendCode, checkOTP}
+  export  {registerController, loginUserController,logoutController , sendCode, checkOTP,updatePassword }
