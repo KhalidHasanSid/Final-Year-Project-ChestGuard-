@@ -7,20 +7,24 @@ import AskQuestion from "../models/questions.model.js";
 const askQuestionController = asyncHandler(async(req,res,next)=>{
 
     const {age,city,problem,description}=req.body
-    console.log(age,"ugyufyutfct")
+    console.log(age,"ugyufyutfct",city,"===",problem,"===",description)
 
     if(!age||!city||!problem||!description) {throw new apiError(401,"missing any value")}
+
+    console.log("=====================")
 
     const user= req.user
 
     console.log("..........p",user)
+
+    console.log("=====================")
 
    
 
 
 
    const new_queston= await AskQuestion.create({age:age,city:city, Problem_title:problem,Description:description,user:user._id})
-   res.json({"success":"ok"})
+   res.json(new apiResponse(200,new_queston,"sucussfullySubmitted"))
 
 
 
@@ -43,8 +47,12 @@ return res.status(201).json(
     new apiResponse(200, data, "data found")
 )
 
-})
+})  
+
+const authchecker =asyncHandler((req,res)=>{
+      console.log("auth is working fine ")
+    })
 
 
 
-export { askQuestionController,getQuetionsAsked}
+export { askQuestionController,getQuetionsAsked ,authchecker}

@@ -182,8 +182,12 @@ import transporter from "../utils/nodemailer.js";
       await user.save({validateBeforeSave: false})  
        res.json(new apiResponse(200, {}, "Password changed successfully"))
     })
+
+    const authchecker =asyncHandler((req,res)=>{
+      console.log("auth is working fine ")
+    })
     
     
 
 
-  export  {registerController, loginUserController,logoutController , sendCode, checkOTP,updatePassword }
+  export  {registerController, loginUserController,logoutController , sendCode, checkOTP,updatePassword ,authchecker }

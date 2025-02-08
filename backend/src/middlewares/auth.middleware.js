@@ -1,5 +1,3 @@
-
-
 import asyncHandler from "../utils/asyncHandler.js";
 import jwt from "jsonwebtoken"
 import User from "../models/user.model.js";
@@ -17,6 +15,7 @@ const auth =asyncHandler(async (req,res,next)=>{
     const user =await User.findById(decoded._id)
     if(!user){throw new apiError(400," user he nh h ..................")}
     req.user=user 
+    console.log("helo world",req.user)
     next()
 }
     catch(err){console.log("/////////////////////",err)
