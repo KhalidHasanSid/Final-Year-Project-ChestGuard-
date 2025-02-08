@@ -3,10 +3,13 @@ import { apiError } from "../utils/apiError.js";
 import asyncHandler from "../utils/asyncHandler.js ";
 import User from "../models/user.model.js";
 import auth from "../middlewares/auth.middleware.js";
+import transporter from "../utils/nodemailer.js";
+//import { setEmail,getemail,popemail } from "../utils/saveCurrentEmail.js";
 
 
 
-
+    //globalVariable 
+    let  randomNumber =0
 
 
   const registerController=  asyncHandler( async(req, res ,next )=>{
@@ -119,4 +122,52 @@ import auth from "../middlewares/auth.middleware.js";
    })
 
 
-  export  {registerController, loginUserController,logoutController}
+   const sendCode = asyncHandler( async (req, res)=>{
+    const {email}=req.body
+
+    if(!email){
+
+    throw new apiError(400,"hahahahahaahhah")}
+   console.log("check kro..............",email)
+
+
+    randomNumber = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
+
+
+    const mailData = {
+      from: 'khalidhassan.kh705@gmail.com',  // sender address
+        to: email,   // list of receivers
+        subject: 'Sending Email using Node.js',
+        text: `That was easy ${randomNumber}`,
+        html: `<b>Hey there! </b> ${randomNumber}`
+               
+      };
+       transporter.sendMail(mailData, function (err, info) {
+        if(err)
+         { console.log("////////////////////////////")
+          console.log(err)
+          throw new apiError(400,"hahahahahaahhah")}
+        //  res.json (new apiResponse(400,email,"email  not send "))}
+        else
+          console.log(info);
+        res.json (new apiResponse(200,email,"email send "))
+     });
+   })
+
+
+    const checkOTP =asyncHandler(async(req,res)=>{
+      const {email,code}= req.body
+
+      console.log(code,"===",randomNumber)
+      if(code==randomNumber)
+
+        res.json( new apiResponse(200,code,"now you can set your password"))
+      else res.json (new apiResponse(400,email,"email  not send "))}
+    
+      
+    )
+    
+    
+
+
+  export  {registerController, loginUserController,logoutController , sendCode, checkOTP}
