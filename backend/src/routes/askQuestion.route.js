@@ -6,7 +6,7 @@ const askQuestionRouter= Router();
 
 askQuestionRouter.route("/askQuestionFYP").post(auth,askQuestionController) 
 
-//askQuestionRouter.route("/askQuestionFYP").post(auth,askQuestionController)
+
 askQuestionRouter.route("/getquestions").get(getQuetionsAsked)
 
 export default askQuestionRouter

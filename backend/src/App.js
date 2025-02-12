@@ -21,8 +21,10 @@ App.use(cookieParser())
 
 import userRouter from './routes/user.route.js';
 import askQuestionRouter from './routes/askQuestion.route.js';
+import adminRouter from './routes/admin.router.js';
 
 App.use("/api/v1/chestguarduser",userRouter)
 App.use("/api/v1/chestguardquestion",askQuestionRouter)
+App.use("/api/v1/chestguard",adminRouter)
 
 export default App

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 function AdminRegistration() {
+  const [AdminCardNo, setAdminCardNo] = useState('');
   const [fullname, setFullname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,7 +14,7 @@ function AdminRegistration() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:4500/api/v1/chestguarduser/AdminregisterFYP', {
+      const response = await axios.post('http://localhost:4500/api/v1/chestguard/adminRegistration', {
         AdminCardNo,
         fullname,
         email,
@@ -35,7 +36,7 @@ function AdminRegistration() {
       <form onSubmit={handleSubmit}>
 
       <label>AdminCardNo:</label>
-      <input type="number" value={fullname} onChange={(e) => setFullname(e.target.value)} required />
+      <input type="number" value={AdminCardNo} onChange={(e) => setAdminCardNo(e.target.value)} required />
         <label>Full Name:</label>
         <input type="text" value={fullname} onChange={(e) => setFullname(e.target.value)} required />
 

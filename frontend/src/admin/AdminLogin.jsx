@@ -4,28 +4,30 @@ import axios from 'axios'
 
 function AdminLogin(){
     const [AdminCardNo ,setAdminCardNo]=React.useState("")
-  const [email ,setEmail]=React.useState("")
+ 
   const [password ,setPassword]=React.useState("") 
   const navigate = useNavigate();
 
   const abc= async(e)=>{
     e.preventDefault();
-    console.log(email,"password",password)
+    console.log(AdminCardNo,"password",password)
    
     try {
-      const response = await axios.post('http://localhost:4500/api/v1/chestguarduser/AdminloginFYP', {
-        email: email, 
+      const response = await axios.post('http://localhost:4500/api/v1/chestguard/AdminloginFYP', {
+        AdminCardNo: AdminCardNo, 
         password: password,
       }, { withCredentials: true }); 
+      console.log("=============check2")
 
-      console.log('Login successful:', response, "token is here ", response.data.data.access);
+      console.log('Login successful:', response, "token sssss ", response.data.data.access);
      
       
-      localStorage.setItem('Accesstoken', response.data.data.access);
-      localStorage.setItem('Refreshtoken', response.data.data.refresh);
-      localStorage.setItem('loginTimestamp', Date.now());
+      localStorage.setItem('AdminAccesstoken', response.data.data.access);
+      localStorage.setItem('AdminRefreshtoken', response.data.data.refresh);
+      localStorage.setItem('AdminloginTimestamp', Date.now());
+      console.log("=============check3")
 
-      navigate('/Adminhome');
+      navigate('/dashboard');
       
     } catch (err) {
       console.error("Login error:", err);
@@ -37,8 +39,7 @@ function AdminLogin(){
     <h1 className="text-3xl font-bold underline">heloo world</h1>
     <label  >AdminCardNo:</label>
     <input  onChange={(e)=> setAdminCardNo(e.target.value)} type="number " />
-      <label  >Email:</label>
-      <input  onChange={(e)=> setEmail(e.target.value)} type="text" />
+     
       <label >Password:</label>
       <input onChange={(e)=> setPassword(e.target.value)} type="password" />
       <button onClick={abc} >Login</button>

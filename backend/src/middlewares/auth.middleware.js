@@ -16,7 +16,7 @@ const auth =asyncHandler(async (req,res,next)=>{
     if(!user){throw new apiError(400," user he nh h ..................")}
     req.user=user 
     console.log("helo world",req.user)
-    next()
+    next();
 }
     catch(err){console.log("/////////////////////",err)
         if (err.name === 'TokenExpiredError') {
