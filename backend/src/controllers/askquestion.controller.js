@@ -36,7 +36,7 @@ const askQuestionController = asyncHandler(async(req,res,next)=>{
 
 const getQuetionsAsked= asyncHandler(async(req,res)=>{
 
-  const data=await AskQuestion.find().lean()
+  const data  =  await AskQuestion.find({Aproved:{$exists:false}}).lean()
   if (data.length === 0){
     throw new apiError(404, "No data found ")}
 

@@ -205,8 +205,10 @@ import AskQuestion from "../models/questions.model.js";
       if (!_id|| !reply || !approved) {
         throw new apiError(400, "id or reply or approve  is missing");
       }
+      console.log("==================1")
 
        const question=await  AskQuestion.findOne({_id})
+       console.log("==================2",question)
 
        if(!question) {throw new apiError(409,"doest exit")}
 
@@ -222,10 +224,12 @@ import AskQuestion from "../models/questions.model.js";
 
 
      const getapprovedQuestionController  =asyncHandler(async( req,res)=>{
+      console.log("hi")
 
 
-      const  data = AskQuestion.find({Aproved:true})
-      res.json(apiResponse(200,data,"data found "))
+      const  data = await  AskQuestion.find({Aproved:true}).lean()
+      console.log("hellp mr world i am from mars:",data)
+      res.json( new apiResponse(200,data,"data found "))
 
 
      }) 

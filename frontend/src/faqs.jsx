@@ -9,8 +9,9 @@ export default function Faqs() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4500/api/v1/chestguardquestion/getquestions"
-        );
+          "http://localhost:4500/api/v1/chestguard/B",
+        );  
+        console.log(response.data.data)
         setData(response.data.data);
       } catch (err) {
         console.error("Error fetching questions:", err);
@@ -38,7 +39,7 @@ export default function Faqs() {
          
           <input type="text" readOnly value={eachValue.city} />
           <h2>{eachValue.Problem_title}</h2>
-          <input type="text" readOnly value={eachValue.description} />
+          <input type="text" readOnly value={eachValue.Description} />
           <label>Reply:</label>
           <input type="text" readOnly value={eachValue.Reply} />
          
