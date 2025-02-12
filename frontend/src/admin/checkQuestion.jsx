@@ -22,6 +22,7 @@ export default function CheckQuestion() {
     fetchData();
   }, []);
 
+
   const handlesubmit = async (_id) => {
     setApproved(true);
 
@@ -38,6 +39,13 @@ export default function CheckQuestion() {
       console.error("Error approving question:", err);
     }
   };
+   const deletesubmit=(_id)=>{
+    try{ 
+      const response= axios.post( "http://localhost:4500/api/v1/chestguard/deletequestion" ,{_id},{ withCredentials: true })
+      setInfo((prev)=> prev.filter((eachValue)=>eachValue._id!==_id ))
+    }
+    catch(err){}
+   }
 
   return (
     <>
@@ -63,6 +71,7 @@ export default function CheckQuestion() {
             onChange={(e) => setReply(e.target.value)}
           />
           <button onClick={() => handlesubmit(eachValue._id)}>Approve</button>
+          <button onClick={() => deletesubmit(eachValue._id)}>delete</button>
         </div>
       ))}
     </>

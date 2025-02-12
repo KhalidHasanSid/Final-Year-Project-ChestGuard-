@@ -230,9 +230,18 @@ import AskQuestion from "../models/questions.model.js";
 
      }) 
 
+
+     const deleteQuestion = asyncHandler( async (req,res)=>{
+      const {_id} =req.body
+
+      if(!_id){throw new apiError(409,"id is empty plz kuda a k wasty id djeay ")}
+     const acknowlegement= await AskQuestion.deleteOne({_id:_id})
+      res.json(new apiResponse(200,acknowlegement,"data deelted successfully"))
+     })
+
     
     
     
 
 
-  export  {adminRegisterController, loginAdminController,logoutController , sendCode, checkOTP,updatePassword, approveQuestion ,getapprovedQuestionController }
+  export  {adminRegisterController, loginAdminController,logoutController , sendCode, checkOTP,updatePassword, approveQuestion ,getapprovedQuestionController,deleteQuestion }
